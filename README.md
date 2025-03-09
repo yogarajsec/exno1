@@ -287,6 +287,6 @@ op
 ![Screenshot 2025-03-08 114736](https://github.com/user-attachments/assets/4096086f-48a6-4e22-ac1c-0377e009cb18)
 
 # Result
-        
+  Thus we have cleaned the data and removed the outliers by detection using IQR and Z-score method.     
 
 
