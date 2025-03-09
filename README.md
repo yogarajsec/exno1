@@ -1,4 +1,4 @@
-# Exno:1
+![Screenshot 2025-03-08 114526](https://github.com/user-attachments/assets/cc826b8c-3025-4edc-b773-eb6679376a51)# Exno:1
 Data Cleaning Process
 
 # AIM
@@ -175,7 +175,118 @@ m2
 df.TOTAL.fillna(m2,inplace=False)
 ```
 ![Screenshot 2025-03-08 114512](https://github.com/user-attachments/assets/c8eb6400-a868-42a1-87a8-c7c3546c7266)
+```
+df.isnull()
+```
+![Screenshot 2025-03-08 114520](https://github.com/user-attachments/assets/2194cb12-92e0-40ff-99cf-2611c024adc2)
+```
+import seaborn as sns
+sns.heatmap(df.isnull(),yticklabels=False,annot=True)
+```
+![Screenshot 2025-03-08 114526](https://github.com/user-attachments/assets/7c33eebb-55f4-4840-a8b2-ed4eb5434f70)
+```
+sns.heatmap(df.isnull(),yticklabels=True,annot=True)
+```
+![Screenshot 2025-03-08 114535](https://github.com/user-attachments/assets/a36e9922-2c46-4751-aef1-a4c253b365cb)
+```
+df.dropna(inplace=True)
+sns.heatmap(df.isnull(),yticklabels=False,annot=True)
+```
+![Screenshot 2025-03-08 114545](https://github.com/user-attachments/assets/475868d3-6ba8-4f76-9e19-1d9c2d7fb93c)
+```
+import scipy.stats as stats
+df=pd.read_csv("/content/heights.csv")
+df
+```
+![Screenshot 2025-03-08 114553](https://github.com/user-attachments/assets/9973f803-e94e-4bb9-a465-b7b81c874d08)
+
+```
+sns.boxplot(data=df)
+```
+![Screenshot 2025-03-08 114600](https://github.com/user-attachments/assets/9a2598ff-d898-4f19-a569-b7e4c09f5204)
+```
+sns.scatterplot(data=df)
+```
+![Screenshot 2025-03-08 114606](https://github.com/user-attachments/assets/5b0dee8a-260c-4f8b-88a9-0fa9b7820b0f)
+```
+max=df['height'].quantile(0.75)
+min=df['height'].quantile(0.25)
+iqr=max-min
+iqr
+```
+![Screenshot 2025-03-08 114614](https://github.com/user-attachments/assets/d2bccd1e-1c12-4cc8-8f13-f2f3f3ddbf08)
+
+```
+lb=min-1.5*iqr
+ub=max+1.5*iqr
+outliers=df[(df['height']<lb)|(df['height']>ub)]
+print("Lower bound:",lb)
+print("Upper bound:",ub)
+print("Outliers:",outliers)
+```
+![Screenshot 2025-03-08 114618](https://github.com/user-attachments/assets/062bd02c-1c0d-4809-bc6d-b559350e39c1)
+
+```
+no_outliers=df[~((df['height']<lb)|(df['height']>ub))]
+no_outliers
+```
+![Screenshot 2025-03-08 114625](https://github.com/user-attachments/assets/c23e552c-a6bd-46a6-8ef5-815b764da3f9)
+```
+sns.boxplot(data=no_outliers)
+```
+![Screenshot 2025-03-08 114631](https://github.com/user-attachments/assets/e41d9ff9-70df-403c-9fdb-d991893cd49d)
+```
+sns.scatterplot(data=no_outliers)
+```
+![Screenshot 2025-03-08 114637](https://github.com/user-attachments/assets/8b8d58ff-661f-4e7d-bc3a-b365d3e99cea)
+```
+import matplotlib.pyplot as plt
+df
+```
+![Screenshot 2025-03-08 114643](https://github.com/user-attachments/assets/bdd84c44-b7c1-4723-86a2-665d281a78ca)
+```
+max=df['height'].quantile(0.75)
+q2=df['height'].quantile(0.5)
+min=df['height'].quantile(0.25)
+iqr=max-min
+lb=min-1.5*iqr
+ub=max+1.5*iqr
+dfs=df[(df['height']>=lb)&(df['height']<=ub)]
+dfs
+```
+![Screenshot 2025-03-08 114648](https://github.com/user-attachments/assets/e66efc3c-3092-4f77-8c2f-f07625ab7c10)
+```
+z=np.abs(stats.zscore(df['height']))
+z
+```
+![Screenshot 2025-03-08 114657](https://github.com/user-attachments/assets/fef9a59f-d105-4927-8086-3ec2663ca1b7)
+```
+df1=df[z<3]
+df1
+```
+![Screenshot 2025-03-08 114716](https://github.com/user-attachments/assets/72d67a8f-db0e-4e7d-9ba8-b45e65877842)
+```
+val=df['height']
+val
+```
+![Screenshot 2025-03-08 114722](https://github.com/user-attachments/assets/723b278e-d7f6-4b9e-84e5-050883f01934)
+```
+out=[]
+def d_o(val):
+  ts=3
+  m=np.mean(val)
+  sd=np.std(val)
+  for i in val:
+    z=(i-m)/sd
+    if np.abs(z)>ts:
+      out.append(i)
+  return out
+op=d_o(val)
+op
+```
+![Screenshot 2025-03-08 114736](https://github.com/user-attachments/assets/4096086f-48a6-4e22-ac1c-0377e009cb18)
 
 # Result
-          <<include your Result here>>
+        
+
 
